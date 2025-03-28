@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bucket-list-project</title>
+   <style>
+    body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f7f7f7;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+input, button {
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+input {
+    width: 250px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    width: 300px;
+}
+
+li {
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+li button:hover {
+    background-color: #c82333;
+}
+   </style>
+</head>
+<body>
+    <h1>My Bucket List</h1>
+    
+    <!-- Input field to add new items -->
+    <input type="text" id="bucket-item" placeholder="Add a new item">
+    <button onclick="addItem()">Add Item</button>
+    
+    <!-- Button to list all items in the console -->
+    <button onclick="listItems()">Show List in Console</button>
+    
+    <!-- Display the bucket list -->
+    <ul id="bucket-list"></ul>
+
+    <script>
+        // Array to store bucket list items
+        let bucketList = [];
+
+        // Function to add an item to the bucket list
+        function addItem() {
+            const itemText = document.getElementById('bucket-item').value;
+            if (itemText) {
+                bucketList.push(itemText); // Add item to the array
+
+                // Create a new list item
+                const li = document.createElement('li');
+                li.textContent = itemText;
+
+                // Create delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.onclick = function() {
+                    li.remove();
+                    bucketList = bucketList.filter(item => item !== itemText); // Remove item from array
+                };
+
+                li.appendChild(deleteButton); // Add delete button to list item
+                document.getElementById('bucket-list').appendChild(li); // Add list item to the DOM
+
+                // Clear input field
+                document.getElementById('bucket-item').value = '';
+            }
+        }
+
+        // Function to list all items in the console
+        function listItems() {
+            if (bucketList.length === 0) {
+                console.log('Your bucket list is empty.');
+            } else {
+                console.log('Your Bucket List:');
+                bucketList.forEach((item, index) => {
+                    console.log(`${index + 1}. ${item}`);
+                });
+            }
+        }
+    </script>
+   
+</body>
+</html>
